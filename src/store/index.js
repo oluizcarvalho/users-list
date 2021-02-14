@@ -93,7 +93,7 @@ const filterStore = (state = initialState, action) => {
             }
             return newState;
         case LOAD_DATA:
-            let count = action.payload.count;
+            let count = db.results.length;
             let countPerPage = action.payload.countPerPage || 20;
 
             //round up
