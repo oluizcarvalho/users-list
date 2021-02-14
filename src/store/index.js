@@ -45,8 +45,8 @@ const filterStore = (state = initialState, action) => {
             case SORT_BY_ALPHABET:
                 const sortByAlphabetState = Object.assign({}, state);
                 let sortedAlphabetArr = action.payload.direction === "asc" ?
-                    sortAsc(state.filteredUsers, 'name') :
-                    sortDesc(state.filteredUsers, 'name');
+                    sortAsc(state.filteredUsers, 'name', 'first') :
+                    sortDesc(state.filteredUsers, 'name', 'first');
 
                 sortByAlphabetState.filteredUsers = sortedAlphabetArr;
                 sortByAlphabetState.appliedFilters = addFilterIfNotExists(SORT_BY_ALPHABET, sortByAlphabetState.appliedFilters);
@@ -56,8 +56,8 @@ const filterStore = (state = initialState, action) => {
         case SORT_BY_AGE:
             let sortByPriceState = Object.assign({}, state);
             let sortedPriceArr = action.payload.direction === "asc" ?
-                sortAsc(state.filteredUsers, 'age') :
-                sortDesc(state.filteredUsers, 'age');
+                sortAsc(state.filteredUsers, 'dob', 'age') :
+                sortDesc(state.filteredUsers, 'dob', 'age');
 
             sortByPriceState.filteredUsers = sortedPriceArr;
             sortByPriceState.appliedFilters = addFilterIfNotExists(SORT_BY_ALPHABET, sortByPriceState.appliedFilters);
@@ -166,21 +166,21 @@ const filterStore = (state = initialState, action) => {
 
 export default filterStore;
 
-function sortAsc(arr, field) {
+function sortAsc(arr, field, field1) {
     return arr.sort(function (a, b) {
-        if (a[field] > b[field]) return 1;
+        if (a[field][field1] > b[field][field1]) return 1;
 
-        if (b[field]> a[field]) return -1;
+        if (b[field][field1]> a[field][field1]) return -1;
 
         return 0;
     })
 }
 
-function sortDesc(arr, field) {
+function sortDesc(arr, field, field1) {
     return arr.sort(function (a, b) {
-        if (a[field] > b[field]) return -1;
+        if (a[field][field1] > b[field][field1]) return -1;
 
-        if (b[field]> a[field]) return 1;
+        if (b[field][field1]> a[field][field1]) return 1;
 
         return 0;
     })

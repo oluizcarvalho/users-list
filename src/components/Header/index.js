@@ -42,8 +42,8 @@ const Header = (props) => {
                                             <option value='alphabet_asc'>Name - A-Z</option>
                                             <option value='alphabet_desc'>Name - Z-A</option>
 
-                                            <option value='price_asc'>Age - Lowest to Highest</option>
-                                            <option value='price_desc'>Age - Highest to Lowest</option>
+                                            <option value='age_asc'>Idade - Crescente</option>
+                                            <option value='age_desc'>Idade - Decrescente</option>
 
                                         </select>
                                     </div>
