@@ -7,9 +7,7 @@ import Header from '../Header';
 import Paginator from '../Paginator';
 
 const List = (props) => {
-    console.log("🚀 ~ List ~ props", props)
     const [initFunction, setInitFunction] = useState(false);
-
 
     const componentDidMount = () => {
         if (!initFunction) {
@@ -28,9 +26,10 @@ const List = (props) => {
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-    if (!initFunction) {
+
+    if (!initFunction)
         componentDidMount()
-    }
+
     let users = props.state.filteredUsers;
 
     return (
