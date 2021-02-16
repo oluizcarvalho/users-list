@@ -1,10 +1,23 @@
 import CallIcon from '@material-ui/icons/Call';
 import React, { useState } from 'react';
-import { Table } from "react-bootstrap";
+import { Row, Table } from "react-bootstrap";
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { loadData } from "../../store";
 import Header from '../Header';
+import LogoKabum from '../Logo';
+import Photo from '../Photos';
 import Paginator from '../Paginator';
+
+
+const ListContent = styled.div`
+    margin-top: 24px;
+    margin-bottom: 24px;
+    tr.header {
+        color : ${({ theme }) => theme.colors.contrastText};
+        background-color: ${({ theme }) => theme.colors.primary};
+    }
+`;
 
 const List = (props) => {
     const [initFunction, setInitFunction] = useState(false);
@@ -33,11 +46,13 @@ const List = (props) => {
     let users = props.state.filteredUsers;
 
     return (
-        <div className="container">
+        <ListContent className="container">
+            <LogoKabum />
             <Header />
+            <Row />
             <Table striped bordered hover>
                 <thead>
-                    <tr className="bg-primary text-light">
+                    <tr className="header">
                         <th></th>
                         <th>Nome</th>
                         <th>Sobrenome</th>
@@ -50,9 +65,10 @@ const List = (props) => {
                     {
                         users && users.length && users.map(user => (
                             <tr key={user.name.first}>
-                                <td>
-                                    <img alt={user.name.first} src={user.picture.thumbnail} srcSet={`${user.picture.thumbnail}`} />
-                                </td>
+                                <Photo.Td>
+                                    <Photo.User PhotoUser={user.picture.medium}>
+                                    </Photo.User>
+                                </Photo.Td>
                                 <td>
                                     <strong>{capitalizeFirstLetter(user.name.first)}</strong>
                                 </td>
@@ -74,7 +90,7 @@ const List = (props) => {
                 </tbody>
             </Table>
             <Paginator />
-        </div>
+        </ListContent>
 
     );
 }

@@ -19,19 +19,14 @@ const GlobalStyle = createGlobalStyle`
   html, body {
     min-height: 100vh;
   }
-  #__next {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
 `;
 
 const theme = {
   colors: {
     primary: "#EC7100",
     secondary: "#097BBA",
-    mainBg: "#fff",
-    contrastText: "#222",
+    mainBg: "#222",
+    contrastText: "#fff",
     wrong: "#FF5722",
     success: "#4CAF50"
   }
