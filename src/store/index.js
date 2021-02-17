@@ -54,16 +54,16 @@ const filterStore = (state = initialState, action) => {
 
                 return sortByAlphabetState;
         case SORT_BY_AGE:
-            let sortByPriceState = Object.assign({}, state);
-            let sortedPriceArr = action.payload.direction === "asc" ?
+            let sortByAgeState = Object.assign({}, state);
+            let sortedAgeArr = action.payload.direction === "asc" ?
                 sortAsc(state.filteredUsers, 'dob', 'age') :
                 sortDesc(state.filteredUsers, 'dob', 'age');
 
-            sortByPriceState.filteredUsers = sortedPriceArr;
-            sortByPriceState.appliedFilters = addFilterIfNotExists(SORT_BY_ALPHABET, sortByPriceState.appliedFilters);
-            sortByPriceState.appliedFilters = removeFilter(SORT_BY_AGE, sortByPriceState.appliedFilters);
+            sortByAgeState.filteredUsers = sortedAgeArr;
+            sortByAgeState.appliedFilters = addFilterIfNotExists(SORT_BY_ALPHABET, sortByAgeState.appliedFilters);
+            sortByAgeState.appliedFilters = removeFilter(SORT_BY_AGE, sortByAgeState.appliedFilters);
 
-            return sortByPriceState;
+            return sortByAgeState;
 
         case FILTER_BY_VALUE:
             let newState = Object.assign({}, state);
@@ -96,7 +96,7 @@ const filterStore = (state = initialState, action) => {
             let count = db.results.length;
             let countPerPage = action.payload.countPerPage || 20;
 
-            //round up
+            //*round up
             let totalPages = Math.ceil(count / countPerPage);
 
             let users = db.results;
@@ -112,37 +112,33 @@ const filterStore = (state = initialState, action) => {
                 filteredPages: totalPages
             };
         case LOAD_NEW_PAGE:
-            //Clone the previous state
+            
             let loadNewPageState = Object.assign({}, state);
-            //How many pages should be added. Will always be 1 or -1
             let addPages = action.payload.page;
-            //add it to the current
             loadNewPageState.currentPage += addPages;
 
-            let perPage = loadNewPageState.countPerPage; //20 by default
+            let perPage = loadNewPageState.countPerPage; //*20 by default
 
             let nextUsers;
             if (addPages === 1){
-                //Moving from page 1 to 2 will cause ‘upperCount’ to be 40
                 let upperCount = loadNewPageState.currentCount + perPage;
-                let lowerCount = loadNewPageState.currentCount; //This hasn’t been changed. It will remain 20.
+                let lowerCount = loadNewPageState.currentCount;
 
                 loadNewPageState.currentCount += loadNewPageState.countPerPage;
                 nextUsers = loadNewPageState.users.slice(lowerCount, upperCount);
             }
 
             if (addPages ===-1){
-                let upperCount = loadNewPageState.currentCount; //40
-                let lowerCount = loadNewPageState.currentCount - perPage; //20
+                let upperCount = loadNewPageState.currentCount; //*total
+                let lowerCount = loadNewPageState.currentCount - perPage; //*20
 
                 loadNewPageState.currentCount -= loadNewPageState.countPerPage;
                 nextUsers = loadNewPageState.users.slice(lowerCount - perPage, upperCount - perPage);
             }
 
             loadNewPageState.filteredUsers = nextUsers;
-            // Don't use window.history.pushState() here in production
-            // It's better to keep redirections predictable
-            window.history.pushState({page: 1}, "title 1", `?page=${loadNewPageState.currentPage}`);
+
+            window.history.pushState({page: 1}, "title 1", `?page=${loadNewPageState.currentPage}`); // !dont use on production
             return loadNewPageState;
         case LOAD_EXACT_PAGE:
             const exactPageState = Object.assign({}, state);
@@ -154,7 +150,7 @@ const filterStore = (state = initialState, action) => {
             exactPageState.filteredUsers = exactUser;
             exactPageState.currentCount = upperCountExact;
             exactPageState.currentPage = exactPage;
-            window.history.pushState({page: 1}, "title 1", `?page=${exactPageState.currentPage}`);
+            window.history.pushState({page: 1}, "title 1", `?page=${exactPageState.currentPage}`);  // !dont use on production
 
             return exactPageState;
 
