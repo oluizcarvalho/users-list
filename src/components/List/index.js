@@ -20,7 +20,7 @@ const ListContent = styled.div`
     }
 `;
 
-const List = ({state, loadData}) => {
+const List = ({filterStore, loadData}) => {
     const [initFunction, setInitFunction] = useState(false);
 
     const componentDidMount = () => {
@@ -44,7 +44,7 @@ const List = ({state, loadData}) => {
     if (!initFunction)
         componentDidMount()
 
-    let users = state.filteredUsers;
+    let users = filterStore.filteredUsers;
 
     return (
         <ListContent className="container">
@@ -96,9 +96,9 @@ const List = ({state, loadData}) => {
     );
 }
 
-function mapStateToProps(state) {
-    return { state };
-}
+const mapStateToProps = state => ({
+    filterStore: state.filterStore
+})
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators(FilterActions, dispatch)

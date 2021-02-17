@@ -9,7 +9,7 @@ export const PaginatorFilter = styled.div`
     justify-content: space-between;
 `;
 
-const Paginator = ({state, loadExactPage, loadNewPage }) => {
+const Paginator = ({filterStore, loadExactPage, loadNewPage }) => {
 
     const nextPage = () => {
         loadNewPage({ page: 1 })
@@ -23,15 +23,15 @@ const Paginator = ({state, loadExactPage, loadNewPage }) => {
         loadExactPage({ page })
     }
     return (
-        <PaginatorFilter {...state}>
+        <PaginatorFilter {...filterStore}>
             <Pagination>
                 <Pagination.Prev onClick={() => {
                     previousPage()
                 }} />
                 {
-                    [...Array(state.filteredPages)].map((value, index) => (
+                    [...Array(filterStore.filteredPages)].map((value, index) => (
                         <Pagination.Item key={index}
-                            active={state.currentPage === index + 1}
+                            active={filterStore.currentPage === index + 1}
                             onClick={() => goToPage(index + 1)}
                             aria-current="page"
                         >{index + 1}</Pagination.Item>
@@ -44,9 +44,10 @@ const Paginator = ({state, loadExactPage, loadNewPage }) => {
     )
 }
 
-function mapStateToProps(state) {
-    return { state };
-}
+const mapStateToProps = state => ({
+    filterStore: state.filterStore
+})
+
 const mapDispatchToProps = dispatch =>
     bindActionCreators(FilterActions, dispatch)
 

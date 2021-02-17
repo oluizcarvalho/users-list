@@ -10,7 +10,7 @@ export const HeaderFilter = styled.header`
     margin-top: 20px;
 `;
 
-const Header = ({user, filterByValue, sortByAge, sortByAlphabet}) => {
+const Header = ({filterStore, filterByValue, sortByAge, sortByAlphabet}) => {
     const filterByInput = (e) => {
         let input = e.target.value;
         filterByValue({ value: input })
@@ -27,7 +27,7 @@ const Header = ({user, filterByValue, sortByAge, sortByAlphabet}) => {
         }
     }
     return (
-        <HeaderFilter {...user}>
+        <HeaderFilter {...filterStore}>
             <InputGroup className="mb-3">
                 <DropdownButton
                     as={InputGroup.Prepend}
@@ -50,9 +50,9 @@ const Header = ({user, filterByValue, sortByAge, sortByAlphabet}) => {
     )
 }
 
-const mapStateToProps = state => {
-    return { state };
-}
+const mapStateToProps = state => ({
+    filterStore: state.filterStore
+})
 
 const mapDispatchToProps = dispatch =>
     bindActionCreators(FilterActions, dispatch)
