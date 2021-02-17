@@ -18,7 +18,7 @@ const Header = (props) => {
 
     const sortByInput = (e) => {
         const value = e;
-        let direction = value.endsWith('asc') ? "asc" : "desc";
+        let direction = value.endsWith('asc') ? "asc" : "desc"; //*compare string 
 
         if (value.startsWith('age')) {
             props.dispatch(sortByAge({ direction }))
