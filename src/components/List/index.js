@@ -2,12 +2,13 @@ import CallIcon from '@material-ui/icons/Call';
 import React, { useState } from 'react';
 import { Row, Table } from "react-bootstrap";
 import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
 import styled from 'styled-components';
-import { loadData } from "../../store";
+import * as FilterActions from '../../store/actions';
 import Header from '../Header';
 import LogoKabum from '../Logo';
-import Photo from '../Photos';
 import Paginator from '../Paginator';
+import Photo from '../Photos';
 
 
 const ListContent = styled.div`
@@ -19,7 +20,7 @@ const ListContent = styled.div`
     }
 `;
 
-const List = (props) => {
+const List = ({state, loadData}) => {
     const [initFunction, setInitFunction] = useState(false);
 
     const componentDidMount = () => {
@@ -31,7 +32,7 @@ const List = (props) => {
             } else {
 
             }
-            props.dispatch(loadData({ countPerPage: 15 }));
+            loadData({ countPerPage: 15 });
             setInitFunction(true)
         }
     }
@@ -43,7 +44,7 @@ const List = (props) => {
     if (!initFunction)
         componentDidMount()
 
-    let users = props.state.filteredUsers;
+    let users = state.filteredUsers;
 
     return (
         <ListContent className="container">
@@ -99,4 +100,7 @@ function mapStateToProps(state) {
     return { state };
 }
 
-export default connect(mapStateToProps)(List);
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(FilterActions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(List);

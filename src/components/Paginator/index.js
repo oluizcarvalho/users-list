@@ -1,37 +1,37 @@
-import Pagination from 'react-bootstrap/Pagination'
+import Pagination from 'react-bootstrap/Pagination';
 import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
 import styled from 'styled-components';
-import { loadExactPage, loadNewPage } from "../../store";
-
+import * as FilterActions from '../../store/actions';
 export const PaginatorFilter = styled.div`
     display: flex;
     align-itens: center;
     justify-content: space-between;
 `;
 
-const Paginator = (props) => {
+const Paginator = ({state, loadExactPage, loadNewPage }) => {
 
     const nextPage = () => {
-        props.dispatch(loadNewPage({ page: 1 }))
+        loadNewPage({ page: 1 })
     }
 
     const previousPage = () => {
-        props.dispatch(loadNewPage({ page: -1 }));
+        loadNewPage({ page: -1 })
     }
 
     const goToPage = (page) => {
-        props.dispatch(loadExactPage({ page }))
+        loadExactPage({ page })
     }
     return (
-        <PaginatorFilter {...props}>
+        <PaginatorFilter {...state}>
             <Pagination>
                 <Pagination.Prev onClick={() => {
                     previousPage()
                 }} />
                 {
-                    [...Array(props.state.filteredPages)].map((value, index) => (
+                    [...Array(state.filteredPages)].map((value, index) => (
                         <Pagination.Item key={index}
-                            active={props.state.currentPage === index + 1}
+                            active={state.currentPage === index + 1}
                             onClick={() => goToPage(index + 1)}
                             aria-current="page"
                         >{index + 1}</Pagination.Item>
@@ -47,6 +47,8 @@ const Paginator = (props) => {
 function mapStateToProps(state) {
     return { state };
 }
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(FilterActions, dispatch)
 
-export default connect(mapStateToProps)(Paginator);
+export default connect(mapStateToProps, mapDispatchToProps)(Paginator);
 

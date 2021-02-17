@@ -1,19 +1,19 @@
-import styled from 'styled-components';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import FormControl from 'react-bootstrap/FormControl';
+import InputGroup from 'react-bootstrap/InputGroup';
 import { connect } from 'react-redux';
-import { filterByValue, sortByAlphabet, sortByAge } from "../../store";
-import InputGroup from 'react-bootstrap/InputGroup'
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown'
-import FormControl from 'react-bootstrap/FormControl'
-
+import { bindActionCreators } from "redux";
+import styled from 'styled-components';
+import * as FilterActions from '../../store/actions';
 export const HeaderFilter = styled.header`
     margin-top: 20px;
 `;
 
-const Header = (props) => {
+const Header = ({user, filterByValue, sortByAge, sortByAlphabet}) => {
     const filterByInput = (e) => {
         let input = e.target.value;
-        props.dispatch(filterByValue({ value: input }))
+        filterByValue({ value: input })
     }
 
     const sortByInput = (e) => {
@@ -21,13 +21,13 @@ const Header = (props) => {
         let direction = value.endsWith('asc') ? "asc" : "desc"; //*compare string 
 
         if (value.startsWith('age')) {
-            props.dispatch(sortByAge({ direction }))
+            sortByAge({ direction })
         } else {
-            props.dispatch(sortByAlphabet({ direction }));
+            sortByAlphabet({ direction });
         }
     }
     return (
-        <HeaderFilter {...props}>
+        <HeaderFilter {...user}>
             <InputGroup className="mb-3">
                 <DropdownButton
                     as={InputGroup.Prepend}
@@ -50,8 +50,11 @@ const Header = (props) => {
     )
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
     return { state };
 }
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(FilterActions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
