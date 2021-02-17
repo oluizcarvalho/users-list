@@ -55,6 +55,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 -   **[React Redux](https://react-redux.js.org/)**
 -   **[Bootstrap](https://getbootstrap.com/)** 
 -   **[React Bootstrap](https://react-bootstrap.github.io/)**
+-   **[Material UI](https://material-ui.com/pt/)**
 
 ---
 ### Autor
