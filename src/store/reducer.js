@@ -40,7 +40,7 @@ const filterStore = (state = initialState, action) => {
             let value = action.payload.value;
             let filteredValues = state.users.filter(user => {
                 return user.name.first.toLowerCase().includes(value) ||
-                    user.name.last.toLowerCase().includes(value);
+                    user.name.last.toLowerCase().includes(value) || user.phone.includes(value);
             });
 
             let appliedFilters = state.appliedFilters;

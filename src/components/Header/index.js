@@ -6,11 +6,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import styled from 'styled-components';
 import * as FilterActions from '../../store/actions';
+
 export const HeaderFilter = styled.header`
     margin-top: 20px;
 `;
 
-const Header = ({filterStore, filterByValue, sortByAge, sortByAlphabet}) => {
+const Header = ({ filterStore, filterByValue, sortByAge, sortByAlphabet }) => {
     const filterByInput = (e) => {
         let input = e.target.value;
         filterByValue({ value: input })
@@ -31,7 +32,7 @@ const Header = ({filterStore, filterByValue, sortByAge, sortByAlphabet}) => {
             <InputGroup className="mb-3">
                 <DropdownButton
                     as={InputGroup.Prepend}
-                    variant="outline-secondary"
+                    variant="primary"
                     title="Filtros"
                     onSelect={e => sortByInput(e)}
                     id="input-group-dropdown-1"
@@ -44,7 +45,7 @@ const Header = ({filterStore, filterByValue, sortByAge, sortByAlphabet}) => {
                 </DropdownButton>
                 <FormControl className="mb-9" onChange={e => {
                     filterByInput(e);
-                }} aria-describedby="basic-addon1" />
+                }} aria-describedby="basic-addon1" placeholder="Busque pelo nome ou telefone" />
             </InputGroup>
         </HeaderFilter>
     )
