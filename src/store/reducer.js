@@ -37,6 +37,7 @@ const filterStore = (state = initialState, action) => {
 
         case FILTER_BY_VALUE:
             let newState = Object.assign({}, state);
+            console.log("🚀 ~ filterStore ~ value", action)
             let value = action.payload.value;
             let filteredValues = state.users.filter(user => {
                 return user.name.first.toLowerCase().includes(value) ||
