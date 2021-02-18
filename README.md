@@ -10,6 +10,7 @@
 
 <h4 align="center"> 
 	✔️ Projeto Users List 🚀 Finalizado ✔️
+	Tempo gasto codando: 8h 10m
 </h4>
 
 ---
