@@ -9,7 +9,7 @@
 </p>
 
 <h4 align="center"> 
-	✔️ Projeto Users List 🚀 Finalizado ✔️
+	✔️ Projeto Users List 🚀 Finalizado ✔️ <br />
 	Tempo gasto codando: 8h 10m
 </h4>
 
