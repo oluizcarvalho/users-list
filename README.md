@@ -1,5 +1,5 @@
 <h1 align="center">Users List</h1>
-<p align="center">projeto teste da empresa kabum focado em ReactJS</p>
+<p align="center">projeto de estudo focado em ReactJS</p>
 
 <p align="center">
  <a href="#-sobre">Sobre</a> •
@@ -17,7 +17,7 @@
 
 ### 💻 Sobre
 
-Users List - É um teste proposto pela empresa kabum onde terá que ser feito uma página de listagem de usuários, com paginação e pelo menos duas opções de filtros selecionáveis.
+Users List - Projeto de estudo onde terá que ser feito uma página de listagem de usuários, com paginação e pelo menos duas opções de filtros selecionáveis.
 O sistema deverá ser em React com Redux (utilizando Sagas).
 ---
 
